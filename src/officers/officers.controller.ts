@@ -19,37 +19,21 @@ export class OfficersController {
 
   @Get()
   findAll() {
-      // const counter:number = Object.keys(data).length
-    // let code:number;
-    // let message:string;
-    // console.log (counter);
-    // if (counter == 0) {
-    //     code =HttpStatus.NOT_FOUND;
-    //     message='Not Found';  
-    // }else {
-    //     code =HttpStatus.OK;
-    //     message='OK';
-    // }
-        // return {
-    //   code: code,
-    //   message: message,
-    //   resultFound: counter,
-    //   data: data
-    // } 
-
     return this.officersService.findAll();
   
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
+    console.log(`id: ${id} findOne: ${this.officersService.findOne(+id)}`);
     return this.officersService.findOne(+id);
   }
 
 
 
-  @Patch(':id')
+  @Patch('editOfficer/:id')
   update(@Param('id') id: string, @Body() updateOfficerDto: UpdateOfficerDto) {
+    console.log(`id: ${id} updateOfficerDto: ${updateOfficerDto}`);
     return this.officersService.update(+id, updateOfficerDto);
   }
 

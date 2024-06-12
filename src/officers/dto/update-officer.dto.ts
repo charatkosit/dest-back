@@ -22,5 +22,12 @@ export class UpdateOfficerDto extends PartialType(CreateOfficerDto) {
   
     @IsNotEmpty()
     multiSelectFloor: string;
-  
+    
+    embossedNumber: string;
+
+    internalNumber: string;
+
+    callAttribute: string;
+
+    active: boolean;
 }

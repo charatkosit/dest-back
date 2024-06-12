@@ -23,5 +23,13 @@ export class CreateOfficerDto {
   
     @IsNotEmpty()
     multiSelectFloor: string;
+
+    embossedNumber: string;
+
+    internalNumber: string;
+
+    callAttribute: string;
+
+    active: boolean;
   
 }

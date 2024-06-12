@@ -29,11 +29,17 @@ export class Officer {
   @Column()
   token: string;
 
+  @Column({nullable:true})
+  embossedNumber: string;
+
+  @Column({nullable:true})
+  internalNumber: string;
+
   @Column()
   multiSelectFloor: string;
 
-
-
+  @Column({nullable:true})
+  active: boolean;
 
 
 }

@@ -48,7 +48,7 @@ export class AcmController {
 
 
         // const destFloor = visitor[0].destFloor;
-        const url = `http://127.0.0.1:3000/api/mitsu/single`;
+        const url = `http://10.19.4.8:3000/api/mitsu/single`;
         let data: any = {
           "ipAddress": process.env.IP_MITSU,
           "deviceNum": inputAcmDto.deviceNum,
@@ -66,7 +66,7 @@ export class AcmController {
 
       try {
         // const destFloor = visitor[0].destFloor;
-        const url = `http://127.0.0.1:3000/api/mitsu/multi`;
+        const url = `http://10.19.4.8:3000/api/mitsu/multi`;
         let data: any = {
           "ipAddress": process.env.IP_MITSU,
           "deviceNum": inputAcmDto.deviceNum,

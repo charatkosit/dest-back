@@ -25,7 +25,7 @@ export class VisitorsService {
     visitor.idCard = createVisitorDto.idCard;
     visitor.token = createVisitorDto.token;
     visitor.destFloor = createVisitorDto.destFloor;
-    visitor.checkIn = null;
+    visitor.checkIn = new Date();
     visitor.checkOut = null;
 
     return await this.visitorRepository.save(visitor)
@@ -33,7 +33,8 @@ export class VisitorsService {
 
   async findAll() : Promise<Visitor[]>{
     return await this.visitorRepository.find({
-      select: ['id','firstName', 'lastName', 'phone', 'idCard', 'token', 'destFloor','callAttribute', 'checkIn', 'checkOut']
+      select: ['id','firstName', 'lastName', 'phone', 'idCard', 'token', 'destFloor','callAttribute', 'checkIn', 'checkOut'],
+      order: { id: 'DESC' }
     })
   }
 

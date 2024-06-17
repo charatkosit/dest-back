@@ -20,4 +20,7 @@ export class CreateVisitorDto {
     @IsNotEmpty()
     destFloor: number;
 
+   
+    checkIn: Date;
+
 }

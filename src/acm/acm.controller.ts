@@ -2,6 +2,7 @@ import { Controller, Req, Res, Get, Post, Body, Patch, Param, Delete } from '@ne
 import { AcmService } from './acm.service';
 import { InputAcmDto } from './dto/input-acm.dto';
 import { HttpService } from '@nestjs/axios';
+import { readerLoaction } from './dto/readerLocation';
 
 @Controller('acm')
 export class AcmController {
@@ -15,10 +16,18 @@ export class AcmController {
 
     //This function for re-check DeviceNum  in Debug mode 
     //To check DeviceNum then Line Notifiaction
-    const debugData = JSON.stringify(inputAcmDto)
-    console.log(`debugData ${debugData}`)
-    this.acmService.sendNotification(debugData);
-
+    // const debugData = JSON.stringify(inputAcmDto)
+    // สำหรับ debug โดยเพิ่มการแสดง location ลงไป ซึ่งจริงๆ จะมีแค่ token กับ deviceNum ไม่มี loc    
+    const debugData ={...inputAcmDto, loc:''};
+    const deviceNum =   inputAcmDto.deviceNum;
+    const location = readerLoaction.find( res => Number(res.deviceNum) === Number(deviceNum))
+    console.log('location', location)
+    if (location){
+      debugData.loc = location.loc;
+    }
+    console.log(`debugData: ${JSON.stringify(debugData)}`)
+    this.acmService.sendNotification(`${JSON.stringify(debugData)}`);
+   //-------------
 
     const visitor = await this.acmService.findVisitorByToken(inputAcmDto.token);
     const officer = await this.acmService.findOfficerByToken(inputAcmDto.token);

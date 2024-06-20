@@ -58,6 +58,10 @@ export class VisitorsService {
     return await this.visitorRepository.update(id,updateVisitorDto) 
   }
 
+  async checkout(id: number) :Promise<UpdateResult>{
+    return await this.visitorRepository.update(id,{checkOut: new Date()})
+  }
+
   async remove(id: number) :Promise<DeleteResult> {
     return await this.visitorRepository.delete(id);
   }

@@ -24,9 +24,10 @@ export class VisitorsController {
     return this.visitorsService.findAllToday();
   }
 
+  // Total visitors today
   @Get('count')
   count(){
-    return this.visitorsService.count();
+    return this.visitorsService.countToday();
   } 
 
   @Get(':id')

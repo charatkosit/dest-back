@@ -85,8 +85,10 @@ export class VisitorsService {
     return await this.visitorRepository.delete(id);
   }
 
-  async count() :Promise<number> {
-    return await this.visitorRepository.count();
+  async countToday() :Promise<number> {
+    return await this.visitorRepository.count({
+      where: { checkIn: Between(new Date(new Date().toISOString().slice(0,10) + ' 00:00:00'), new Date(new Date().toISOString().slice(0,10) + ' 23:59:59'))}
+    });
   }
 
   async checkOut(id: number) :Promise<UpdateResult>{

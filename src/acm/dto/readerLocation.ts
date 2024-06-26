@@ -90,6 +90,10 @@ export const readerLoaction = [
     { deviceNum: '95', loc: 'FL31 HZL' },
     { deviceNum: '96', loc: 'FL31 HZR' },
     { deviceNum: '99', loc: 'FL32 HZL' },
-    { deviceNum: '100', loc: 'FL32 HZR' }
+    { deviceNum: '100', loc: 'FL32 HZR' },
+    { deviceNum: '901', loc: 'FL1 Return' },
+    { deviceNum: '902', loc: 'FL2 Return' },
+    { deviceNum: '903', loc: 'FL3 Return' },
+    { deviceNum: '904', loc: 'FL4 Return' }
   ];
   

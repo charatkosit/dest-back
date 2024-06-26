@@ -9,6 +9,8 @@ import { AcmModule } from './acm/acm.module';
 import { OfficersModule } from './officers/officers.module';
 import { Officer } from './officers/entities/officer.entity';
 import { ConfigModule } from '@nestjs/config';
+import { ReturnCardController } from './return-card/return-card.controller';
+import { ReturnCardModule } from './return-card/return-card.module';
 
 
 @Module({
@@ -28,8 +30,9 @@ import { ConfigModule } from '@nestjs/config';
     VisitorsModule,
     OfficersModule,
     AcmModule,
-    OfficersModule],
-  controllers: [AppController],
+    OfficersModule,
+    ReturnCardModule],
+  controllers: [AppController, ReturnCardController],
   providers: [
   
     AppService],

@@ -144,7 +144,7 @@ export class UdpService {
   deviceNumToHexBoardingFloor(deviceNum:number){
     const groupFloor = [ 
       [1,2,3,4,5,6,7,8,9,10,11,12],
-      [13,14,15,16,17,18,19,20,21,22,23,24],
+      [13,14,15,16,17,18,19,20,21,22], //เดิม[13,14,15,16,17,18,19,20,21,22,23,24]
       [25,26,27,28,29,30,31,32,33,34],
       [37,38],
       [49,50],
@@ -153,13 +153,13 @@ export class UdpService {
       [61,62],
       [65,66],
       [69,70],
-      [73,74],
+      [73,74],  //FL11
       [77,78],
       [81,82],
       [85,86],
       [89,90],
       [93,94],
-      [97,98],
+      [97,98],  //FL17
       [101,102],
       [103,104],
       [51,52,105,106],
@@ -174,7 +174,7 @@ export class UdpService {
       [87,88],
       [91,92],
       [95,96],
-      [99,100]
+      [99,100]  //FL32
 
     ];
 
@@ -253,7 +253,7 @@ export class UdpService {
 
   async sendNotification(message: string) {
     // ส่งข้อมูลไปยัง Line Notify API
-    const lineNotifyToken = 'ZcuasZl67YahoAeTyAvQ7loyL9RU2twtbqqizkfIhp6'; // แทนค่าด้วย Line Notify Token ของคุณ
+    const lineNotifyToken = process.env.LINE_NOTIFY_TOKEN; // แทนค่าด้วย Line Notify Token ของคุณ
     const url = 'https://notify-api.line.me/api/notify';
     
     const headers = {

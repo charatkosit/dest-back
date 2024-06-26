@@ -18,16 +18,16 @@ export class AcmController {
     //To check DeviceNum then Line Notifiaction
     // const debugData = JSON.stringify(inputAcmDto)
     // สำหรับ debug โดยเพิ่มการแสดง location ลงไป ซึ่งจริงๆ จะมีแค่ token กับ deviceNum ไม่มี loc    
-    const debugData ={...inputAcmDto, loc:''};
-    const deviceNum =   inputAcmDto.deviceNum;
-    const location = readerLoaction.find( res => Number(res.deviceNum) === Number(deviceNum))
+    const debugData = { ...inputAcmDto, loc: '' };
+    const deviceNum = inputAcmDto.deviceNum;
+    const location = readerLoaction.find(res => Number(res.deviceNum) === Number(deviceNum))
     console.log('location', location)
-    if (location){
+    if (location) {
       debugData.loc = location.loc;
     }
     console.log(`debugData: ${JSON.stringify(debugData)}`)
     this.acmService.sendNotification(`${JSON.stringify(debugData)}`);
-   //-------------
+    //-------------
 
     const visitor = await this.acmService.findVisitorByToken(inputAcmDto.token);
     const officer = await this.acmService.findOfficerByToken(inputAcmDto.token);
@@ -37,12 +37,32 @@ export class AcmController {
       94, 97, 98, 101, 102, 103, 104, 105, 106, 51, 52, 55, 56, 59, 60, 63, 64, 67, 68, 71, 72,
       75, 76, 79, 80, 83, 84, 87, 88, 91, 92, 95, 96, 99, 100]
 
-  //debug
-  // console.log(`visitor: ${JSON.stringify(visitor)}`);
-  // console.log(`officer: ${JSON.stringify(officer)}`);
-  
+    //อ่านบัตร Single ที่ DeviceNum เหล่านี้ จะเป็นการเก็บบัตรคืน
+    const deviceNumReturnCard = [901, 902, 903, 904]  //สมมุติว่าเป็นเครื่องที่เก็บบัตรคืน  
 
-    if (visitor.length === 1) {
+    // ถ้า inputAcmDto.deviceNum อยู่ใน deviceNumReturnCard ให้เรียก API ที่เก็บบัตรคืน
+    if (deviceNumReturnCard.includes(+inputAcmDto.deviceNum)) {
+      console.log('route to return card')
+      try {
+        const url = `http://${process.env.IP_Backend}:3000/api/return-card/input`
+        let data: any = {
+          "token": inputAcmDto.token,
+          "deviceNum": inputAcmDto.deviceNum,
+        }
+        const response = await this.http.post(url, data).toPromise();
+        return response.data;
+
+      } catch (error) {
+        throw new Error(`Error calling API: ${error.message}`);
+      }
+    }
+
+    //debug
+    // console.log(`visitor: ${JSON.stringify(visitor)}`);
+    // console.log(`officer: ${JSON.stringify(officer)}`);
+
+
+    if (visitor.length === 1) { // visitor.length === 1 คือ มีข้อมูลของบัตรนั้นอยู่ใน รายชื่อของ visitor
       console.log('route to single')
 
       //1 visitor
@@ -57,7 +77,7 @@ export class AcmController {
 
 
         // const destFloor = visitor[0].destFloor;
-        const url = `http://10.19.4.8:3000/api/mitsu/single`;
+        const url = `http://${process.env.IP_Backend}:3000/api/mitsu/single`;
         let data: any = {
           "ipAddress": process.env.IP_MITSU,
           "deviceNum": inputAcmDto.deviceNum,
@@ -70,12 +90,12 @@ export class AcmController {
         throw new Error(`Error calling API: ${error.message}`);
       }
 
-    } else if (officer.length === 1) {
+    } else if (officer.length === 1) { // officer.length === 1 คือ มีข้อมูลของบัตรนั้นอยู่ใน รายชื่อของ officer
       console.log('บัตรพนักงาน Multi')
 
       try {
         // const destFloor = visitor[0].destFloor;
-        const url = `http://10.19.4.8:3000/api/mitsu/multi`;
+        const url = `http://${process.env.IP_Backend}:3000/api/mitsu/multi`;
         let data: any = {
           "ipAddress": process.env.IP_MITSU,
           "deviceNum": inputAcmDto.deviceNum,

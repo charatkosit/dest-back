@@ -2,24 +2,26 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { InputAcmDto } from 'src/acm/dto/input-acm.dto';
 import { VisitorsService } from 'src/visitors/visitors.service';
 import { ReturnCardService } from './return-card.service';
-import { UpdateVisitorDto } from 'src/visitors/dto/update-visitor.dto';
-import { UpdateOfficerDto } from 'src/officers/dto/update-officer.dto';
+
 
 
 @Controller('return-card')
 export class ReturnCardController {
 
-    constructor(private visitor: VisitorsService){}
+    constructor(private visitor: VisitorsService,
+        private returnCard: ReturnCardService
+    ){}
 
     @Post('visitor')
     async visitorReturnCard(@Body() inputAcmDto: InputAcmDto) {
 
         try{
-            const visitor =   await this.visitor.findByToken(inputAcmDto.token);
+            const visitor =   await this.visitor.findByTokenToday(inputAcmDto.token);
             console.log('Visitor', visitor)
             if(visitor){
                 await this.visitor.checkOut(visitor[0].id)
-                return `บัตร Visitor ${visitor[0].firstName}  ถูกคืน`;
+                this.returnCard.sendNotification(`บัตร Visitor ${visitor[0].firstName}  ถูกคืน`);
+                return `บัตร Visitor ${visitor[0].firstName}  ถูกคืนที่ DeviceNum: ${inputAcmDto.deviceNum}`;
             } 
         } catch (error) {
             return 'บัตรไม่ลงทะเบียน ถูกคืน';

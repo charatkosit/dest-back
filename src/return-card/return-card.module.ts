@@ -8,9 +8,12 @@ import { HttpModule } from '@nestjs/axios';
 import { VisitorsModule } from 'src/visitors/visitors.module';
 
 @Module({
-  imports: [VisitorsModule],
-  providers: [ReturnCardService,VisitorsService],
+  imports: [VisitorsModule,
+            HttpModule,
+],
+  providers: [ReturnCardService, VisitorsService],
   controllers: [ReturnCardController],
+  exports: [ReturnCardService]
 
 })
-export class ReturnCardModule {}
+export class ReturnCardModule { }

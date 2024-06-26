@@ -3,7 +3,7 @@ import { CreateVisitorDto } from './dto/create-visitor.dto';
 import { UpdateVisitorDto } from './dto/update-visitor.dto';
 import { Visitor } from './entities/visitor.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { Between, DeleteResult, Like, Repository, UpdateResult } from 'typeorm';
 import { timestamp } from 'rxjs';
 
 @Injectable()
@@ -38,6 +38,14 @@ export class VisitorsService {
     })
   }
 
+  async findAllToday() : Promise<Visitor[]>{
+    return await this.visitorRepository.find({
+      select: ['id','firstName', 'lastName', 'phone', 'idCard', 'token', 'destFloor','callAttribute', 'checkIn', 'checkOut'],
+      where: { checkIn: Between(new Date(new Date().toISOString().slice(0,10) + ' 00:00:00'), new Date(new Date().toISOString().slice(0,10) + ' 23:59:59'))},
+      order: { id: 'DESC' }
+    })
+  }
+
   async findOne(id: number): Promise<Visitor[]> {
     return await this.visitorRepository.find({
       select: ['id','firstName', 'lastName', 'phone', 'idCard', 'token', 'destFloor','callAttribute', 'checkIn', 'checkOut'],
@@ -50,10 +58,20 @@ export class VisitorsService {
       select: ['id','firstName', 'lastName', 'phone', 'idCard', 'token', 'destFloor','callAttribute', 'checkIn', 'checkOut'],
       where: [{ token: token }]
     });
-
-  
+ 
     return result;
   }
+
+  async findByTokenToday(token: string): Promise<any> {
+   // ค้นหาข้อมูลวันนี้ โดยดูเฉพาะวันที่ checkIn ที่ตรงกับวันนี้ และ token ที่ตรงกับที่ส่งมา
+    const today = new Date();
+    const result = await this.visitorRepository.find({
+      select: ['id','firstName', 'lastName', 'phone', 'idCard', 'token', 'destFloor','callAttribute', 'checkIn', 'checkOut'],
+      where: { token: token, checkIn: Between(new Date(today.toISOString().slice(0,10) + ' 00:00:00'), new Date(today.toISOString().slice(0,10) + ' 23:59:59'))}
+    });
+     return result;
+  }
+
 
   async update(id: number, updateVisitorDto: UpdateVisitorDto) :Promise<UpdateResult>{
     return await this.visitorRepository.update(id,updateVisitorDto) 

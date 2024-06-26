@@ -18,10 +18,10 @@ export class VisitorsController {
     return this.visitorsService.create(createVisitorDto);
   }
 
-
+  // Today's visitors
   @Get()
   findAll() {
-    return this.visitorsService.findAll();
+    return this.visitorsService.findAllToday();
   }
 
   @Get('count')

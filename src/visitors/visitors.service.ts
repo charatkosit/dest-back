@@ -51,6 +51,7 @@ export class VisitorsService {
       where: [{ token: token }]
     });
 
+  
     return result;
   }
 
@@ -69,4 +70,8 @@ export class VisitorsService {
   async count() :Promise<number> {
     return await this.visitorRepository.count();
   }
+
+  async checkOut(id: number) :Promise<UpdateResult>{
+    return await this.visitorRepository.update(id,{checkOut: new Date()})
+  } 
 }

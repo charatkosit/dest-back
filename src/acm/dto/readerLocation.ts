@@ -91,9 +91,13 @@ export const readerLoaction = [
     { deviceNum: '96', loc: 'FL31 HZR' },
     { deviceNum: '99', loc: 'FL32 HZL' },
     { deviceNum: '100', loc: 'FL32 HZR' },
-    { deviceNum: '901', loc: 'FL1 Return' },
-    { deviceNum: '902', loc: 'FL2 Return' },
-    { deviceNum: '903', loc: 'FL3 Return' },
-    { deviceNum: '904', loc: 'FL4 Return' }
+    { deviceNum: '801', loc: 'FL1 Exit' },
+    { deviceNum: '802', loc: 'FL2 Exit' },
+    { deviceNum: '803', loc: 'FL3 Exit' },
+    { deviceNum: '804', loc: 'FL4 Exit' },
+    { deviceNum: '901', loc: 'FL1 ReturnCard' },
+    { deviceNum: '902', loc: 'FL2 ReturnCard' },
+    { deviceNum: '903', loc: 'FL3 ReturnCard' },
+    { deviceNum: '904', loc: 'FL4 ReturnCard' }
   ];
   

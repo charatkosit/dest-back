@@ -38,7 +38,7 @@ export class AcmService {
 
   async sendNotification(message: string) {
     // ส่งข้อมูลไปยัง Line Notify API
-    const lineNotifyToken = 'ZcuasZl67YahoAeTyAvQ7loyL9RU2twtbqqizkfIhp6'; // แทนค่าด้วย Line Notify Token ของคุณ
+    const lineNotifyToken = process.env.LINE_NOTIFY_TOKEN; // แทนค่าด้วย Line Notify Token ของคุณ
     const url = 'https://notify-api.line.me/api/notify';
     
     const headers = {

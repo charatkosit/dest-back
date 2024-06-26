@@ -1,5 +1,4 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-
 import { AxiosResponse } from 'axios';
 import {Observable, last, lastValueFrom} from 'rxjs';
 import { VisitorsService } from './visitors.service';
@@ -19,6 +18,7 @@ export class VisitorsController {
     return this.visitorsService.create(createVisitorDto);
   }
 
+
   @Get()
   findAll() {
     return this.visitorsService.findAll();
@@ -37,6 +37,11 @@ export class VisitorsController {
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateVisitorDto: UpdateVisitorDto) {
     return this.visitorsService.update(+id, updateVisitorDto);
+  }
+
+  @Patch('checkout/:id')
+  checkout(@Param('id') id: string ) {
+    return this.visitorsService.checkout(+id);
   }
 
   @Delete(':id')

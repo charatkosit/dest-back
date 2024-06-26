@@ -11,6 +11,7 @@ import { Officer } from './officers/entities/officer.entity';
 import { ConfigModule } from '@nestjs/config';
 import { ReturnCardController } from './return-card/return-card.controller';
 import { ReturnCardModule } from './return-card/return-card.module';
+import { VisitorsService } from './visitors/visitors.service';
 
 
 @Module({
@@ -35,6 +36,6 @@ import { ReturnCardModule } from './return-card/return-card.module';
   controllers: [AppController, ReturnCardController],
   providers: [
   
-    AppService],
+      AppService],
 })
 export class AppModule {}

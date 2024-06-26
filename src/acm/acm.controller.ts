@@ -40,11 +40,31 @@ export class AcmController {
     //อ่านบัตร Single ที่ DeviceNum เหล่านี้ จะเป็นการเก็บบัตรคืน
     const deviceNumReturnCard = [901, 902, 903, 904]  //สมมุติว่าเป็นเครื่องที่เก็บบัตรคืน  
 
+    //อ่านบัตร DeviceNum เพื่อ Exit จากอาคาร
+    const deviceNumExit = [801, 802, 803, 804]
+    
+    // ถ้า inputAcmDto.deviceNum อยู่ใน deviceNumExit ให้เรียก API ออกจากอาคาร
+    if(deviceNumExit.includes(+inputAcmDto.deviceNum)){
+      console.log('route to exit')
+      try {
+        const url = `http://${process.env.IP_Backend}:3000/api/return-card/exit`
+        let data: any = {
+          "token": inputAcmDto.token,
+          "deviceNum": inputAcmDto.deviceNum,
+        }
+        const response = await this.http.post(url, data).toPromise();
+        return response.data;
+
+      } catch (error) {
+        throw new Error(`Error calling API: ${error.message}`);
+      }
+    }
+
     // ถ้า inputAcmDto.deviceNum อยู่ใน deviceNumReturnCard ให้เรียก API ที่เก็บบัตรคืน
     if (deviceNumReturnCard.includes(+inputAcmDto.deviceNum)) {
       console.log('route to return card')
       try {
-        const url = `http://${process.env.IP_Backend}:3000/api/return-card/input`
+        const url = `http://${process.env.IP_Backend}:3000/api/return-card/visitor`
         let data: any = {
           "token": inputAcmDto.token,
           "deviceNum": inputAcmDto.deviceNum,

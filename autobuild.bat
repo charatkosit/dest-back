@@ -13,9 +13,9 @@ set name=!name:~2,-1!
 set version=!version:~2,-1!
 
 :: Build Docker commands
-echo docker build -t charat/!name!:!version! .
-echo docker tag charat/!name!:!version! charat/!name!:latest
-echo docker push charat/!name!:!version!
-echo docker push charat/!name!:latest
+docker build -t charat/!name!:!version! .
+docker tag charat/!name!:!version! charat/!name!:latest
+docker push charat/!name!:!version!
+docker push charat/!name!:latest
 
 endlocal

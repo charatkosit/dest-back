@@ -12,6 +12,8 @@ import { ConfigModule } from '@nestjs/config';
 import { ReturnCardController } from './return-card/return-card.controller';
 import { ReturnCardModule } from './return-card/return-card.module';
 import { VisitorsService } from './visitors/visitors.service';
+import { VisitorCardModule } from './visitor-card/visitor-card.module';
+import { VisitorCard } from './visitor-card/entities/visitor-card.entity';
 
 
 @Module({
@@ -24,7 +26,7 @@ import { VisitorsService } from './visitors/visitors.service';
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_DB_NAME,
-      entities: [Visitor,Officer],
+      entities: [Visitor,Officer,VisitorCard],
       synchronize: true,
     }),
     MitsuModule,
@@ -32,7 +34,8 @@ import { VisitorsService } from './visitors/visitors.service';
     OfficersModule,
     AcmModule,
     OfficersModule,
-    ReturnCardModule],
+    ReturnCardModule,
+    VisitorCardModule],
   controllers: [AppController, ReturnCardController],
   providers: [
   

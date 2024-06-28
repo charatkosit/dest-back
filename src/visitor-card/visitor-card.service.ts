@@ -39,11 +39,10 @@ export class VisitorCardService {
     return result;
   }
 
- async findFreeOne(numOnCard: string) : Promise<any> {
+ async findTokenOne(numOnCard: string) : Promise<any> {
   const result = await this.visitorCardRepository.find({
     select: [ 'token', 'numOnCard','occupied'],
-    where: [{ numOnCard: numOnCard,
-              occupied: false}]
+    where: [{ numOnCard: numOnCard}]
   });
 
   return result;

@@ -12,14 +12,14 @@ export class VisitorCardController {
     return this.visitorCardService.create(createVisitorCardDto);
   }
 
-  @Get()
+  @Get('findFreeAll')
   findAll() {
     return this.visitorCardService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.visitorCardService.findOne(+id);
+  @Get('findToken/:id')
+  findTokenOne(@Param('id') id: string) {
+    return this.visitorCardService.findTokenOne(id);
   }
 
   @Patch(':id')

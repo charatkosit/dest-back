@@ -12,6 +12,9 @@ export class Visitor {
   lastName: string;
 
   @Column()
+  address: string;
+
+  @Column()
   phone: string;
 
   @Column({ type: 'varchar', default: 'normal' })
@@ -25,6 +28,17 @@ export class Visitor {
 
   @Column()
   destFloor: number;
+
+  @Column()
+  bussiness: string;
+
+
+  @Column()
+  photoIDcard: string;
+
+  @Column()
+  photoWebCam: string;
+
 
   @Column({nullable:true})
   checkIn: Date;

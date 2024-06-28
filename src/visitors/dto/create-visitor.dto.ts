@@ -9,6 +9,8 @@ export class CreateVisitorDto {
     @IsNotEmpty()
     lastName: string;
 
+    address: string;
+
     @IsNotEmpty({message:'กรุณาใส่หมายเลขโทรศัพท์'})
     phone: string;
     
@@ -19,7 +21,12 @@ export class CreateVisitorDto {
     
     @IsNotEmpty()
     destFloor: number;
+   
+    bussiness: string;
 
+    photoIDcard: string;
+
+    photoWebCam: string;
    
     checkIn: Date;
 

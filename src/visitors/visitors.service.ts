@@ -21,10 +21,14 @@ export class VisitorsService {
     const visitor = new Visitor();
     visitor.firstName = createVisitorDto.firstName;
     visitor.lastName = createVisitorDto.lastName;
+    visitor.address = createVisitorDto.address;
     visitor.phone = createVisitorDto.phone;
     visitor.idCard = createVisitorDto.idCard;
+    visitor.bussiness = createVisitorDto.bussiness;
     visitor.token = createVisitorDto.token;
     visitor.destFloor = createVisitorDto.destFloor;
+    visitor.photoIDcard = createVisitorDto.photoIDcard;
+    visitor.photoWebCam = createVisitorDto.photoWebCam;
     visitor.checkIn = new Date();
     visitor.checkOut = null;
 

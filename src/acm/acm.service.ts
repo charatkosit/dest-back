@@ -19,6 +19,7 @@ export class AcmService {
 
 
   async findVisitorByToken(token: string): Promise<any> {
+    console.log(`token on acm.Service.findVisitorByToken: ${token}`);
     const result = await this.visitorRepository.find({
       select: ['firstName', 'lastName', 'phone', 'idCard', 'token', 'destFloor','callAttribute', 'checkIn', 'checkOut'],
       where: [{ token: token }]

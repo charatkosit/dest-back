@@ -3,7 +3,6 @@ import {IsNotEmpty, MinLength, IsEmail} from 'class-validator'
 export class CreateVisitorDto {
 
     @IsNotEmpty()
-    @MinLength(5)
     firstName: string;
 
     @IsNotEmpty()
@@ -11,7 +10,6 @@ export class CreateVisitorDto {
 
     address: string;
 
-    @IsNotEmpty({message:'กรุณาใส่หมายเลขโทรศัพท์'})
     phone: string;
     
     idCard: string;

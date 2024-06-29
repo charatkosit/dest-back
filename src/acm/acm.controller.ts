@@ -31,6 +31,8 @@ export class AcmController {
 
     const visitor = await this.acmService.findVisitorByToken(inputAcmDto.token);
     const officer = await this.acmService.findOfficerByToken(inputAcmDto.token);
+    console.log(`visitor: ${JSON.stringify(visitor)}`);
+    console.log(`officer: ${JSON.stringify(officer)}`);
 
     //อ่านบัตร Single ที่ DeviceNum เหล่านี้  จะเรียกลิฟท์ให้ลงชั้น 1 เท่านั้น
     const deviceNumOfficeFloor = [37, 38, 49, 50, 57, 58, 61, 62, 65, 66, 69, 70, 73, 74, 77, 78, 81, 82, 85, 86, 89, 90, 93,
@@ -38,7 +40,7 @@ export class AcmController {
       75, 76, 79, 80, 83, 84, 87, 88, 91, 92, 95, 96, 99, 100]
 
     //อ่านบัตร Single ที่ DeviceNum เหล่านี้ จะเป็นการเก็บบัตรคืน
-    const deviceNumReturnCard = [901, 902, 903, 904]  //สมมุติว่าเป็นเครื่องที่เก็บบัตรคืน  
+    const deviceNumReturnCard = [900,901, 902, 903, 904]  //สมมุติว่าเป็นเครื่องที่เก็บบัตรคืน  
 
     //อ่านบัตร DeviceNum เพื่อ Exit จากอาคาร
     const deviceNumExit = [801, 802, 803, 804]
@@ -58,24 +60,31 @@ export class AcmController {
       } catch (error) {
         throw new Error(`Error calling API: ${error.message}`);
       }
-    }
-
-    // ถ้า inputAcmDto.deviceNum อยู่ใน deviceNumReturnCard ให้เรียก API ที่เก็บบัตรคืน
-    if (deviceNumReturnCard.includes(+inputAcmDto.deviceNum)) {
+    } else if (deviceNumReturnCard.includes(+inputAcmDto.deviceNum)) {
+      // ถ้า inputAcmDto.deviceNum อยู่ใน deviceNumReturnCard ให้เรียก API ที่เก็บบัตรคืน
       console.log('route to return card')
+      console.log('inputAcmDto', inputAcmDto)
       try {
         const url = `http://${process.env.IP_Backend}:3000/api/return-card/visitor`
         let data: any = {
           "token": inputAcmDto.token,
           "deviceNum": inputAcmDto.deviceNum,
         }
+
+        const url2 = `http://${process.env.IP_Backend}:3000/api/visitorCard/update/${inputAcmDto.token}`
+        let data2: any = { "occupied": false}
+  
         const response = await this.http.post(url, data).toPromise();
+                         await this.http.patch( url2, data2).toPromise();
         return response.data;
 
       } catch (error) {
         throw new Error(`Error calling API: ${error.message}`);
       }
     }
+
+    
+ 
 
     //debug
     // console.log(`visitor: ${JSON.stringify(visitor)}`);

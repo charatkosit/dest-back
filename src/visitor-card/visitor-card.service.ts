@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateVisitorCardDto } from './dto/create-visitor-card.dto';
 import { UpdateVisitorCardDto } from './dto/update-visitor-card.dto';
 import { Repository, UpdateResult } from 'typeorm';
@@ -14,46 +14,47 @@ export class VisitorCardService {
   ) { }
 
   async create(createVisitorCardDto: CreateVisitorCardDto) {
-    const visitorCard= new VisitorCard();
+    const visitorCard = new VisitorCard();
     visitorCard.token = createVisitorCardDto.token;
     visitorCard.numOnCard = createVisitorCardDto.numOnCard;
-    try{
+    try {
       return await this.visitorCardRepository.save(visitorCard)
-    }catch(error){
+    } catch (error) {
       console.log('ไม่สามารถ บันทีกได้' + error);
       return error;
     }
-   
+
   }
 
   findAll() {
     return `This action returns all visitorCard`;
   }
 
- async findFreeAll(): Promise<any> {
+  async findFreeAll(): Promise<any> {
     const result = await this.visitorCardRepository.find({
-      select: ['token', 'numOnCard','occupied'],
+      select: ['token', 'numOnCard', 'occupied'],
       where: [{ occupied: false }]
     });
 
     return result;
   }
 
- async findTokenOne(numOnCard: string) : Promise<any> {
-  const result = await this.visitorCardRepository.find({
-    select: [ 'token', 'numOnCard','occupied'],
-    where: [{ numOnCard: numOnCard}]
-  });
+  async findTokenOne(numOnCard: string): Promise<any> {
+    const result = await this.visitorCardRepository.find({
+      select: ['token', 'numOnCard', 'occupied'],
+      where: [{ numOnCard: numOnCard }]
+    });
 
-  return result;
+    return result;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} visitorCard`;
+  async findOne(numOnCard: string) : Promise<VisitorCard>{
+    return await this.visitorCardRepository.findOneBy( { numOnCard } );
   }
 
- async update(id:number, updateVisitorCardDto: UpdateVisitorCardDto) :Promise<UpdateResult> {
-      return  await this.visitorCardRepository.update(id, updateVisitorCardDto);
+  async update(token: string, updateVisitorCardDto: UpdateVisitorCardDto): Promise<UpdateResult> {
+    console.log(`token on Service: ${token}`);
+    return await this.visitorCardRepository.update({token}, updateVisitorCardDto);
   }
 
   remove(id: number) {

@@ -22,7 +22,7 @@ export class VisitorCardController {
     return this.visitorCardService.findTokenOne(id);
   }
 
-  @Patch(':id')
+  @Patch('update/:id')
   update(@Param('id') id: number, @Body() updateVisitorCardDto: UpdateVisitorCardDto) {
     console.log(`id: ${id} updateVisitorCardDto: ${updateVisitorCardDto}`);
     return this.visitorCardService.update(+id, updateVisitorCardDto);

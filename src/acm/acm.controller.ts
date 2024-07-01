@@ -40,10 +40,10 @@ export class AcmController {
       75, 76, 79, 80, 83, 84, 87, 88, 91, 92, 95, 96, 99, 100]
 
     //อ่านบัตร Single ที่ DeviceNum เหล่านี้ จะเป็นการเก็บบัตรคืน
-    const deviceNumReturnCard = [900,901, 902, 903, 904]  //สมมุติว่าเป็นเครื่องที่เก็บบัตรคืน  
+    const deviceNumReturnCard = [900, 901, 902, 903, 904, 905, 906, 907, 908]  //สมมุติว่าเป็นเครื่องที่เก็บบัตรคืน  
 
     //อ่านบัตร DeviceNum เพื่อ Exit จากอาคาร
-    const deviceNumExit = [801, 802, 803, 804]
+    const deviceNumExit = [801, 802, 803, 804, 805, 806, 807, 808, 809, 810, 811, 812, 813, 814, 815, 816, 817, 818, 819, 820, 821, 822, 823, 824]
     
     // ถ้า inputAcmDto.deviceNum อยู่ใน deviceNumExit ให้เรียก API ออกจากอาคาร
     if(deviceNumExit.includes(+inputAcmDto.deviceNum)){
